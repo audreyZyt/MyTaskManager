@@ -21,4 +21,28 @@ public class TaskService {
             throw new TaskIdException("Task Id " + task.getTaskIdentifier().toUpperCase() + " already exists" );
         }
     }
+
+    public Task findTaskByIdentifier (String taskId) {
+
+        Task task = taskRepository.findByTaskIdentifier(taskId.toUpperCase());
+
+        if (task == null) {
+            throw new TaskIdException("Task ID " + taskId + " doesn't exist");
+        }
+        return task;
+    }
+
+    public Iterable<Task> findAllTasks() {
+        return taskRepository.findAll();
+    }
+
+    public void deleteTaskByIdentifier (String taskId) {
+        Task task = taskRepository.findByTaskIdentifier(taskId);
+
+        if (task == null) {
+            throw new TaskIdException("Can't delete task with ID " + taskId + ". This task doesn't exist");
+        }
+
+        taskRepository.delete(task);
+    }
 }

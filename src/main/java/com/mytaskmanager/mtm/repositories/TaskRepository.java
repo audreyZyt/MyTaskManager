@@ -5,6 +5,8 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface TaskRepository extends CrudRepository<Task, Long> {
 
+    Task findByTaskIdentifier (String taskId);
+
     @Override
-    Iterable<Task> findAllById(Iterable<Long> iterable);
+    Iterable<Task> findAll();
 }
